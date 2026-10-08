@@ -1,0 +1,13 @@
+{
+  "longest_match": true,
+  "priority_resolution": true,
+  "unknown_token_id": 1,
+  "unknown_handling": "fallback_single_char",
+  "add_bos": true,
+  "add_eos": true,
+  "pad_token_id": 0,
+  "max_sequence_length": 64,
+  "padding_strategy": "max_length",
+  "truncation": true,
+  "theme": "dark"
+}

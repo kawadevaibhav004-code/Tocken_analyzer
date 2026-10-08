@@ -1,0 +1,101 @@
+/* Custom Styling & Utilities for Automata-Based Tokenizer */
+
+@keyframes pulseGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.8)) drop-shadow(0 0 16px rgba(59, 130, 246, 0.4));
+  }
+  50% {
+    filter: drop-shadow(0 0 16px rgba(59, 130, 246, 1)) drop-shadow(0 0 28px rgba(59, 130, 246, 0.6));
+  }
+}
+
+@keyframes acceptGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px rgba(16, 185, 129, 0.8));
+  }
+  50% {
+    filter: drop-shadow(0 0 18px rgba(16, 185, 129, 1));
+  }
+}
+
+.node-active {
+  animation: pulseGlow 1.5s infinite ease-in-out;
+}
+
+.node-accepting-active {
+  animation: acceptGlow 1.2s infinite ease-in-out;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.6);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(71, 85, 105, 0.8);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 1);
+}
+
+/* Token chips */
+.token-chip {
+  transition: all 0.15s ease;
+}
+.token-chip:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* SVG Graph Canvas styling */
+.graph-svg {
+  cursor: grab;
+  user-select: none;
+}
+.graph-svg:active {
+  cursor: grabbing;
+}
+
+/* Glassmorphism cards */
+.glass-panel {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(51, 65, 85, 0.6);
+}
+
+/* Light mode overrides */
+.light {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+}
+
+.light .glass-panel {
+  background: rgba(255, 255, 255, 0.85) !important;
+  border-color: rgba(226, 232, 240, 0.9) !important;
+}
+
+.light .bg-slate-900 {
+  background-color: #ffffff !important;
+}
+.light .bg-slate-950 {
+  background-color: #f8fafc !important;
+}
+.light .bg-slate-800 {
+  background-color: #f1f5f9 !important;
+}
+.light .border-slate-800,
+.light .border-slate-700 {
+  border-color: #e2e8f0 !important;
+}
+.light .text-slate-100,
+.light .text-white {
+  color: #0f172a !important;
+}
+.light .text-slate-300,
+.light .text-slate-400 {
+  color: #475569 !important;
+}

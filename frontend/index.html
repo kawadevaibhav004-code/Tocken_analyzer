@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Automata-Based Tokenizer | Deterministic TOC to AI Pipeline</title>
+  
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            mono: ['Fira Code', 'Consolas', 'monospace'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col md:flex-row overflow-hidden">
+
+  <!-- Clean 5-Item Sidebar Navigation -->
+  <aside id="app-sidebar" class="w-full md:w-60 bg-slate-900 border-r border-slate-800 flex flex-col shrink-0 z-40 h-auto md:h-screen">
+    <!-- Brand Title -->
+    <div class="p-4 border-b border-slate-800 flex items-center justify-between">
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center font-bold text-white shadow">
+          ⚡
+        </div>
+        <div>
+          <span class="font-bold text-sm text-white tracking-tight block">Automata Tokenizer</span>
+          <span class="text-[10px] text-blue-400 font-mono font-semibold">TOC → LLM Pipeline</span>
+        </div>
+      </div>
+      <button id="btn-mobile-menu" class="md:hidden text-slate-400 hover:text-white p-1">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
+      </button>
+    </div>
+
+    <!-- 5 Clean Nav Items -->
+    <nav id="nav-list" class="flex-1 overflow-y-auto p-3 space-y-1.5 text-xs">
+      <div class="px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-500 font-mono">Navigation</div>
+      
+      <a href="#dashboard" class="nav-item flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 hover:bg-slate-800 hover:text-white transition font-medium" data-view="dashboard">
+        <span class="text-base">📊</span>
+        <span>Dashboard</span>
+      </a>
+
+      <a href="#rules" class="nav-item flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 hover:bg-slate-800 hover:text-white transition font-medium" data-view="rules">
+        <span class="text-base">📜</span>
+        <span>Regex Rules</span>
+      </a>
+
+      <a href="#automata" class="nav-item flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 hover:bg-slate-800 hover:text-white transition font-medium" data-view="automata">
+        <span class="text-base">⚙️</span>
+        <span>Automata</span>
+      </a>
+
+      <a href="#tokenizer" class="nav-item flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 hover:bg-slate-800 hover:text-white transition font-medium" data-view="tokenizer">
+        <span class="text-base">⚡</span>
+        <span>Tokenizer</span>
+      </a>
+
+      <a href="#ml-export" class="nav-item flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-300 hover:bg-slate-800 hover:text-white transition font-medium" data-view="ml-export">
+        <span class="text-base">🤖</span>
+        <span>ML Output</span>
+      </a>
+    </nav>
+
+    <!-- Footer System Status -->
+    <div class="p-3 border-t border-slate-800 bg-slate-950/60 text-[11px] text-slate-400 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span id="backend-status-indicator" class="w-2 h-2 rounded-full bg-emerald-500"></span>
+        <span id="backend-status-text" class="font-mono text-emerald-400">API Ready</span>
+      </div>
+      <span class="text-[10px] text-slate-500 font-mono">v1.0 Demo</span>
+    </div>
+  </aside>
+
+  <!-- Main View Area -->
+  <main class="flex-1 flex flex-col h-screen overflow-hidden bg-slate-950">
+    <!-- Clean Top Bar -->
+    <header class="h-14 border-b border-slate-800 bg-slate-900/80 px-6 flex items-center justify-between shrink-0 z-30">
+      <div class="flex items-center gap-3">
+        <span id="topbar-view-title" class="text-sm font-bold text-white capitalize">Dashboard</span>
+        <span class="text-slate-700 hidden sm:inline">|</span>
+        <div id="topbar-pipeline-ribbon" class="hidden sm:flex items-center gap-2 text-xs font-mono text-slate-400">
+          <!-- Loaded dynamically -->
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button id="topbar-quick-tokenize" class="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-semibold shadow transition flex items-center gap-1.5">
+          <span>⚡</span>
+          <span>Open Tokenizer</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Dynamic Content Workspace Container -->
+    <div id="main-content" class="flex-1 overflow-y-auto p-6 md:p-8 space-y-6">
+      <!-- Injected by active router page -->
+    </div>
+  </main>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- Entry Script -->
+  <script type="module" src="/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+[
+  {
+    "id": "rule_kw",
+    "name": "KEYWORD",
+    "pattern": "if|else|while|for|return",
+    "token_id": 80,
+    "priority": 1,
+    "description": "Language keywords (if, else, while, for, return)",
+    "enabled": true
+  },
+  {
+    "id": "rule_ident",
+    "name": "IDENTIFIER",
+    "pattern": "[a-zA-Z_][a-zA-Z0-9_]*",
+    "token_id": 60,
+    "priority": 2,
+    "description": "Variable and function names",
+    "enabled": true
+  },
+  {
+    "id": "rule_int",
+    "name": "INTEGER",
+    "pattern": "[0-9]+",
+    "token_id": 21,
+    "priority": 3,
+    "description": "Whole numbers (0-9)",
+    "enabled": true
+  },
+  {
+    "id": "rule_op",
+    "name": "OPERATOR",
+    "pattern": "[+\\-*/=<>!]",
+    "token_id": 50,
+    "priority": 4,
+    "description": "Arithmetic and logical operators",
+    "enabled": true
+  },
+  {
+    "id": "rule_ws",
+    "name": "WHITESPACE",
+    "pattern": "\\s+",
+    "token_id": 30,
+    "priority": 5,
+    "description": "Spaces, tabs, and newlines",
+    "enabled": true
+  }
+]
